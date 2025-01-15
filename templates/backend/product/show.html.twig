@@ -1,0 +1,28 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="page-inner">
+            <div>
+                <table class="table table-bordered w-75 shadow">
+                    <tbody>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ product.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ product.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prix</th>
+                        <td>{{ product.price }} FCFA</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

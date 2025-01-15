@@ -1,0 +1,66 @@
+{% extends 'admin.html.twig' %}
+{% block title %}SANT'ART BUSINESS{% endblock %}
+{% block Blog %}active{% endblock %}
+{% block blog_index %}active{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Listes des catégorie blog</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="{{ path('app_dashboard') }}">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('app_categorieblog_new') }}" class="btn btn-primary text-white">Ajouter une catégorie</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Basic</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="basic-datatables" class="display table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Description</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for categorieblog in categorieblogs %}
+                                    <tr>
+                                        <td>{{ categorieblog.name }}</td>
+                                        <td>{{ categorieblog.description }}</td>
+                                        <td>
+                                            <a href="{{ path('app_categorieblog_show', {'id': categorieblog.id}) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
+                                            <a href="{{ path('app_categorieblog_edit', {'id': categorieblog.id}) }}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                            {{ include('backend/categorieblog/_delete_form.html.twig') }}
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="4">no records found</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

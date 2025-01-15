@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+{% block title %}SANT'ART BUSINESS{% endblock %}
+{% block Ecommerce %}active{% endblock %}
+{% block product_new %}active{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="page-inner">
+        <div>
+            {{ include('backend/product/_form.html.twig') }}
+        </div>
+    </div>
+    {% endblock %}

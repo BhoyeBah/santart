@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Fresh and Organic</p>
+                    <h1>Cart</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb section -->
+
+<!-- cart -->
+<div class="cart-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="cart-table-wrap">
+                    <table class="cart-table">
+                        <thead class="cart-table-head">
+                            <tr class="table-head-row">
+                                <th class="product-remove"></th>
+                                <th class="product-image">Produit</th>
+                                <th class="product-name">Nom</th>
+                                <th class="product-price">Prix</th>
+                                <!-- <th class="product-quantity">Quantité</th> -->
+                                <th class="product-total">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in cart %}
+                            <tr class="table-body-row">
+                                <td class="product-remove"><a href="{{ path('app_cart_decrease', {'id': product.objet.id }) }}"><i class="far fa-window-close text-danger"></i></a></td>
+                                <td class="product-image"><img src="/uploads/products/{{ product.objet.image }}" alt=""></td>
+                                <td class="product-name">{{ product.objet.name }}</td>
+                                <td class="product-price">{{ product.objet.price }} FCFA</td>
+                                <!-- <td class="product-quantity"><input type="number" placeholder="0"></td> -->
+                                <td class="product-total">{{ product.qty}}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="6">Votre panier est vide.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="total-section">
+                    <table class="total-table">
+                        <thead class="total-table-head">
+                            <tr class="table-total-row">
+                                <th>Total</th>
+                                <th>Prix</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="total-data">
+                                <td><strong>Total produit: </strong></td>
+                                <td>{{ fullQuantity }}</td>
+                            </tr>
+
+                            <tr class="total-data">
+                                <td><strong>Prix total T.T.C: </strong></td>
+                                <td>{{ total }} FCFA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="cart-buttons">
+                        <a href="{{ path('app_cart_remove') }}" class="boxed-btn">Vider le panier</a>
+                        <a href="checkout.html" class="boxed-btn black">Commander</a>
+                    </div>
+                </div>
+
+                <!-- <div class="coupon-section">
+						<h3>Apply Coupon</h3>
+						<div class="coupon-form-wrap">
+							<form action="index.html">
+								<p><input type="text" placeholder="Coupon"></p>
+								<p><input type="submit" value="Apply"></p>
+							</form>
+						</div>
+					</div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end cart -->
+
+{% endblock %}

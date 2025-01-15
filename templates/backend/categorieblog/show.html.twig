@@ -1,0 +1,22 @@
+{% extends 'admin.html.twig' %}
+{% block title %}Categorie blog{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="page-inner">
+        <div>
+            <table class="table table-bordered shadow w-75">
+                <tbody>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ categorieblog.name }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ categorieblog.description }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

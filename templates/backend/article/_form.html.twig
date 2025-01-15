@@ -1,0 +1,69 @@
+<!-- Default Basic Forms Start -->
+
+{{ form_start(form, { attr: { class: 'container' } }) }}
+<div class="page-inner">
+    <div class="page-header">
+        <h3 class="fw-bold mb-3">Forms</h3>
+        <ul class="breadcrumbs mb-3">
+            <li class="nav-home">
+                <a href="{{ path('app_dashboard')}}">
+                    <i class="icon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('app_article_index') }}" class="btn btn-primary text-white">Liste de tous les articles</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Form Elements</div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Champ 'name' -->
+                        <div class="col-lg-8 col-md-4">
+                            <div class="form-group">
+                                {{ form_label(form.title, 'Titre') }}
+                                {{ form_widget(form.title, { attr: { class: 'form-control', placeholder: 'Entrez le titre article' } }) }}
+                            </div>
+                        </div>
+
+                        <!-- Champ 'categorie' -->
+                        <div class="col-lg-8 col-md-4">
+                            <div class="form-group">
+                                {{ form_label(form.categorie, 'Catégorie') }}
+                                {{ form_widget(form.categorie, { attr: { class: 'form-control', placeholder: 'Sélectionnez une catégorie' } }) }}
+                            </div>
+                        </div>
+                        <!-- Champ 'description' -->
+                        <div class="col-lg-8 col-md-4">
+                            <div class="form-group">
+                                {{ form_label(form.description, 'Description') }}
+                                {{ form_widget(form.description, { attr: { class: 'form-control', rows: 5, placeholder: 'Entrez la description' } }) }}
+                            </div>
+                        </div>
+                         <!-- Champ 'description' -->
+                         <div class="col-lg-8 col-md-4">
+                            <div class="form-group">
+                                {{ form_label(form.imageFile, 'Description') }}
+                                {{ form_widget(form.imageFile, { attr: { class: 'form-control', rows: 5, placeholder: 'Entrez la description' } }) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <button type="submit" class="btn btn-primary">{{ button_label|default('Enrégistrer') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+
+<!-- Default Basic Forms End -->

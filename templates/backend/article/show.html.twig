@@ -1,0 +1,36 @@
+{% extends 'admin.html.twig' %}
+{% block title %}SANT'ART BUSINESS{% endblock %}
+{% block Blog %}active{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="page-inner">
+            <div>
+                <table class="table table-bordered shadow w-75">
+                    <tbody>
+                    <tr>
+                        <th>Titre</th>
+                        <td>{{ article.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <td>{{ article.user.nom }} {{ article.user.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ article.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de création</th>
+                        <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de modification</th>
+                        <td>{{ article.updatedAt ? article.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
