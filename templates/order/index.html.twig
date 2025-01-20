@@ -1,29 +1,116 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Commande{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <!-- check out section -->
+    <div class="checkout-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="checkout-accordion-wrap">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card single-accordion">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                            Billing Address
+                                        </button>
+                                    </h5>
+                                </div>
 
-<div class="example-wrapper">
-    <h1>Résumé du panier : {{ RecapCart|json_encode() }} ✅</h1>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                     data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="billing-address-form">
+                                            {{ form_start(form) }}
 
-    <p>Cette information provient de :</p>
-    <ul>
-        <li>Le contrôleur à <code>{{ app.request.server.get('DOCUMENT_ROOT') }}/src/Controller/OrderController.php</code></li>
-        <li>Le template à <code>{{ app.request.server.get('DOCUMENT_ROOT') }}/templates/order/index.html.twig</code></li>
-    </ul>
+                                            <p>
+                                                {{ form_label(form.nom, 'Nom complet') }}
+                                                {{ form_widget(form.nom, { 'attr': {'placeholder': 'Votre nom'} }) }}
+                                            </p>
+                                            <p>
+                                                {{ form_label(form.prenom, 'Prénom') }}
+                                                {{ form_widget(form.prenom, { 'attr': {'placeholder': 'Votre prénom'} }) }}
+                                            </p>
+                                            <p>
+                                                {{ form_label(form.telephone, 'Téléphone') }}
+                                                {{ form_widget(form.telephone, { 'attr': {'placeholder': 'Votre numéro de téléphone'} }) }}
+                                            </p>
+                                            <p>
+                                                {{ form_label(form.adresse, 'Adresse') }}
+                                                {{ form_widget(form.adresse, { 'attr': {'placeholder': 'Votre adresse'} }) }}
+                                            </p>
+                                            <p>
+                                                {{ form_label(form.ville, 'Ville') }}
+                                                {{ form_widget(form.ville, { 'attr': {'placeholder': 'Votre ville'} }) }}
+                                            </p>
 
-    {# Affichage du formulaire #}
-    {{ form_start(form) }}
-    {{ form_row(form) }}  {# Affiche tous les champs du formulaire #}
+                                            {{ form_end(form) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+{#                            <div class="card single-accordion">#}
+{#                                <div class="card-header" id="headingThree">#}
+{#                                    <h5 class="mb-0">#}
+{#                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"#}
+{#                                                data-target="#collapseThree" aria-expanded="false"#}
+{#                                                aria-controls="collapseThree">#}
+{#                                            Card Details#}
+{#                                        </button>#}
+{#                                    </h5>#}
+{#                                </div>#}
+{#                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree"#}
+{#                                     data-parent="#accordionExample">#}
+{#                                    <div class="card-body">#}
+{#                                        <div class="card-details">#}
+{#                                            <p>Your card details goes here.</p>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+                        </div>
+                    </div>
+                </div>
 
-    {# Bouton de soumission #}
-    <button type="submit" class="btn btn-primary">Valider la commande</button>
-
-    {{ form_end(form) }}  {# Terminer le formulaire #}
-</div>
+                <div class="col-lg-4">
+                    <div class="order-details-wrap">
+                        <table class="order-details">
+                            <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Details de votre commande</th>
+                                <th>Prix</th>
+                                <th>Qty</th>
+                            </tr>
+                            </thead>
+                            <tbody class="order-details-body">
+                            {{ dump(cart) }}
+                            {% for product in cart %}
+                                <tr>
+                                    <td>{{ product.objet.image }}</td>
+                                    <td>{{ product.objet.name }}</td>
+                                    <td>{{ product.objet.price }}</td>
+                                    <td>{{ product.qty }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tbody class="checkout-details">
+                            <tr>
+                                <td>Total Produit</td>
+                                <td>{{ fullquantity }}</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{ total }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <a href="#" class="boxed-btn">Valider la commande</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end check out section -->
 {% endblock %}

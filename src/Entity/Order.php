@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,12 +17,6 @@ class Order
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
-
-    #[ORM\ManyToOne(inversedBy: 'orders')]
-    private ?User $user = null;
-
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
@@ -28,38 +24,34 @@ class Order
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $telephone = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $telephone = null;
+    private ?string $ville = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $prixtotal = null;
+
+    /**
+     * @var Collection<int, OrderDetails>
+     */
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: OrderDetails::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $orderDetails;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
+
+    public function __construct()
+    {
+        $this->orderDetails = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
-
-        return $this;
     }
 
     public function getNom(): ?string
@@ -86,6 +78,18 @@ class Order
         return $this;
     }
 
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(string $telephone): static
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
     public function getAdresse(): ?string
     {
         return $this->adresse;
@@ -98,15 +102,70 @@ class Order
         return $this;
     }
 
-    public function getTelephone(): ?string
+    public function getVille(): ?string
     {
-        return $this->telephone;
+        return $this->ville;
     }
 
-    public function setTelephone(string $telephone): static
+    public function setVille(string $ville): static
     {
-        $this->telephone = $telephone;
+        $this->ville = $ville;
 
         return $this;
     }
+
+    public function getPrixtotal(): ?string
+    {
+        return $this->prixtotal;
+    }
+
+    public function setPrixtotal(string $prixtotal): static
+    {
+        $this->prixtotal = $prixtotal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderDetails>
+     */
+    public function getOrderDetails(): Collection
+    {
+        return $this->orderDetails;
+    }
+
+    public function addOrderDetail(OrderDetails $orderDetail): static
+    {
+        if (!$this->orderDetails->contains($orderDetail)) {
+            $this->orderDetails->add($orderDetail);
+            $orderDetail->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderDetail(OrderDetails $orderDetail): static
+    {
+        if ($this->orderDetails->removeElement($orderDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderDetail->getCommande() === $this) {
+                $orderDetail->setCommande(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
 }
