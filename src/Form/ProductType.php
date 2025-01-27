@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
@@ -27,6 +28,10 @@ class ProductType extends AbstractType
             ->add('imageFile', VichFileType::class,[
                 'required' => !$options['is_edit'],
                 'label' => $options['is_edit'] ? 'Modifier l\'image (optionnel)' : 'Télécharger une image'
+            ])
+            ->add('ishomepage', CheckboxType::class, [
+                'label' => 'Mettre en vedette',
+                'required' => false,
             ])
         ;
     }

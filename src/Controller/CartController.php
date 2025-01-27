@@ -15,7 +15,7 @@ class CartController extends AbstractController
     public function index(Cart $cart): Response
     {
 
-        return $this->render('cart/index.html.twig',[
+        return $this->render('cart/cart.html.twig',[
             'cart' => $cart->getCart(),
             'total' => $cart->getTotalWt(),
             'fullQuantity' => $cart->fullQuantity(),
@@ -46,7 +46,6 @@ class CartController extends AbstractController
     public function remove(Cart $cart): Response
     {
         $cart->remove();
-
         return $this->redirectToRoute('app_home');
     }
 

@@ -45,7 +45,7 @@
                             </tr>
                             {% else %}
                             <tr>
-                                <td colspan="6">Votre panier est vide.</td>
+                                <td colspan="6">Il n'y a plus d'articles dans votre panier</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -75,20 +75,10 @@
                         </tbody>
                     </table>
                     <div class="cart-buttons">
-                        <a href="{{ path('app_cart_remove') }}" class="boxed-btn">Vider le panier</a>
-                        <a href="{{ path('app_order') }}" class="boxed-btn black">Commander</a>
+                        <a href="{{ path('app_cart_remove') }}" class="boxed-btn danger">Vider le panier</a>
+                        <a href="{{ path('app_order') }}" class="boxed-btn black">Commander en un clic</a>
                     </div>
                 </div>
-
-                <!-- <div class="coupon-section">
-						<h3>Apply Coupon</h3>
-						<div class="coupon-form-wrap">
-							<form action="index.html">
-								<p><input type="text" placeholder="Coupon"></p>
-								<p><input type="submit" value="Apply"></p>
-							</form>
-						</div>
-					</div> -->
             </div>
         </div>
     </div>

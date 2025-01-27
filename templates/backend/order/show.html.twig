@@ -1,0 +1,95 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 mt-5">
+            <div class="card shadow-lg border-0 p-4">
+                <!-- En-tête de la facture -->
+                <div class="text-center mb-4">
+                    <h3 class="fw-bold text-primary">Facture de la Commande</h3>
+                    <h5 class="text-secondary">Commande N°: {{ order.numero }}</h5>
+                </div>
+
+                <!-- Informations combinées -->
+                <div class="row g-4 mb-4">
+                    <!-- Informations sur le client -->
+                    <div class="col-md-6">
+                        <h6 class="fw-bold text-secondary">Informations sur le Client</h6>
+                        <div class="border rounded p-3 bg-light">
+                            <p class="mb-1"><strong>Nom :</strong> {{ order.nom }}</p>
+                            <p class="mb-1"><strong>Prénom :</strong> {{ order.prenom }}</p>
+                            <p class="mb-1"><strong>Téléphone :</strong> {{ order.telephone }}</p>
+                            <p class="mb-1"><strong>Adresse :</strong> {{ order.adresse }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Détails de la commande -->
+                    <div class="col-md-6 text-md-end">
+                        <h6 class="fw-bold text-secondary">Détails de la Commande</h6>
+                        <div class="border rounded p-3 bg-light">
+                            <p class="mb-1"><strong>Date :</strong> {{ order.createdAt | date('d/m/Y') }}</p>
+                            <p class="mb-1"><strong>Mode de Paiement :</strong> Orange Money</p>
+                            <p class="mb-1">
+                                <strong>Status Livraison :</strong>
+                                <span class="badge {% if order.statuslivrer == 'true' %}bg-success{% else %}bg-warning text-dark{% endif %}">
+                                    {% if order.statuslivrer == 'true' %}
+                                    Livré
+                                    {% else %}
+                                    Non livré
+                                    {% endif %}
+                                </span>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tableau des produits commandés -->
+                <div>
+                    <h6 class="fw-bold text-secondary mb-3">Produits Commandés</h6>
+                    <table class="table table-bordered table-striped table-sm fs-6">
+                        <thead class="table-light text-center">
+                            <tr>
+                                <th>#</th>
+                                <th>Image</th>
+                                <th>Produit</th>
+                                <th>Quantité</th>
+                                <th>Prix Unitaire</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for detail in order.orderDetails %}
+                            <tr>
+                                <td class="text-center">{{ loop.index }}</td>
+                                <td>
+                                    <img src="{{ asset('uploads/products/' ~ detail.image) }}" alt="{{ order.name | default('Product image') }}" class="img-thumbnail" style="max-width: 50px;">
+                                </td>
+                                <td>{{ detail.productname }}</td>
+                                <td class="text-center">{{ detail.quantity }}</td>
+                                <td class="text-end">{{ detail.prix | number_format(2, ',', ' ') }} FCFA</td>
+                                <td class="text-end">{{ (detail.quantity * detail.prix) | number_format(2, ',', ' ') }} FCFA</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="5" class="text-end text-primary">Total Général</th>
+                                <th class="text-end text-success">{{ order.prixtotal | number_format(2, ',', ' ') }} FCFA</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- Signature ou remerciements -->
+                <div class="text-center mt-5">
+                    <p class="text-muted mb-1">Merci pour votre confiance !</p>
+                    <p class="fw-bold text-secondary">Boutique XYZ - Adresse : [Votre adresse]</p>
+                </div>
+                <a href="{{ path('app_facture', {'id': order.id }) }}" class="btn btn-success btn-sm">Imprimer la facture</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

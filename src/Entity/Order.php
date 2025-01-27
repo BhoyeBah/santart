@@ -44,6 +44,12 @@ class Order
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $numero = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $statuslivrer = null;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -164,6 +170,30 @@ class Order
     public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getNumero(): ?string
+    {
+        return $this->numero;
+    }
+
+    public function setNumero(string $numero): static
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+
+    public function isStatuslivrer(): ?bool
+    {
+        return $this->statuslivrer;
+    }
+
+    public function setStatuslivrer(?bool $statuslivrer): static
+    {
+        $this->statuslivrer = $statuslivrer;
 
         return $this;
     }

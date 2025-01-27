@@ -15,6 +15,18 @@ class OrderRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Order::class);
     }
+    
+
+         public function findAllOrderedByDate(): array
+       {
+           return $this->createQueryBuilder('o')
+               ->orderBy('o.createdAt', 'DESC')
+               ->getQuery()
+               ->getResult()
+           ;
+       }
+
+
 
     //    /**
     //     * @return Order[] Returns an array of Order objects
@@ -30,6 +42,8 @@ class OrderRepository extends ServiceEntityRepository
     //            ->getResult()
     //        ;
     //    }
+
+
 
     //    public function findOneBySomeField($value): ?Order
     //    {
