@@ -39,7 +39,6 @@
                                     Non livré
                                     {% endif %}
                                 </span>
-
                             </p>
                         </div>
                     </div>
@@ -87,7 +86,11 @@
                     <p class="text-muted mb-1">Merci pour votre confiance !</p>
                     <p class="fw-bold text-secondary">Boutique XYZ - Adresse : [Votre adresse]</p>
                 </div>
-                <a href="{{ path('app_facture', {'id': order.id }) }}" class="btn btn-success btn-sm">Imprimer la facture</a>
+
+                <!-- Bouton d'impression -->
+                <div class="text-center mt-4">
+                    <a href="{{ path('app_facture', {'id': order.id }) }}" class="btn btn-success btn-lg">Imprimer la facture</a>
+                </div>
             </div>
         </div>
     </div>
